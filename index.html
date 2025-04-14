@@ -17,12 +17,22 @@
       color: #111;
     }
 
-    nav {
+     nav {
       display: flex;
       justify-content: center;
       gap: 20px;
       padding: 20px;
       background: #111;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: background 0.3s ease;
+    }
+
+    nav.scrolling {
+      background: rgba(17, 17, 17, 0.8); /* 半透明 */
     }
 
     nav button {

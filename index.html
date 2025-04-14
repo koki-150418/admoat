@@ -178,6 +178,39 @@
   </footer>
 
   <script>
+    <script>
+  const buttons = document.querySelectorAll("nav button");
+  const sections = document.querySelectorAll(".section");
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.section;
+      buttons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+      sections.forEach(section => {
+        section.classList.toggle("active", section.id === target);
+      });
+    });
+  });
+
+  // アニメーション再生用 IntersectionObserver
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      } else {
+        entry.target.classList.remove('in-view'); // ← 何度も再生するならON
+      }
+    });
+  }, {
+    threshold: 0.3,
+  });
+
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
     const buttons = document.querySelectorAll("nav button");
     const sections = document.querySelectorAll(".section");
 

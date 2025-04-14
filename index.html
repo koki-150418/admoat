@@ -61,24 +61,6 @@
       margin: 0;
     }
 
-    .logo span {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px) scale(0.8);
-    }
-
-    .logo.in-view span {
-      animation: bounceIn 0.6s ease forwards;
-      animation-fill-mode: forwards; /* これを必ず追加！ */
-    }
-
-    .logo.in-view span:nth-child(1) { animation-delay: 0.1s; }
-    .logo.in-view span:nth-child(2) { animation-delay: 0.2s; }
-    .logo.in-view span:nth-child(3) { animation-delay: 0.3s; }
-    .logo.in-view span:nth-child(4) { animation-delay: 0.4s; }
-    .logo.in-view span:nth-child(5) { animation-delay: 0.5s; }
-    .logo.in-view span:nth-child(6) { animation-delay: 0.6s; }
-
     @keyframes bounceIn {
       0% {
         opacity: 0;
@@ -89,6 +71,7 @@
         transform: translateY(-10px) scale(1.1);
       }
       100% {
+        opacity: 1;
         transform: translateY(0) scale(1);
       }
     }
@@ -122,8 +105,6 @@
       border-left: 6px solid #ff7a00;
       border-radius: 12px;
       box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-
-      /* ✅ フリップアニメーション用 */
       opacity: 0;
       transform: rotateY(90deg);
       transform-origin: center;
@@ -179,7 +160,12 @@
   <div id="home" class="section active">
     <div class="hero">
       <h1 class="logo animate-on-scroll">
-        <span>A</span><span>d</span><span>M</span><span>o</span><span>a</span><span>t</span>
+        <span style="animation: bounceIn 0.6s ease 0.1s forwards;">A</span>
+        <span style="animation: bounceIn 0.6s ease 0.2s forwards;">d</span>
+        <span style="animation: bounceIn 0.6s ease 0.3s forwards;">M</span>
+        <span style="animation: bounceIn 0.6s ease 0.4s forwards;">o</span>
+        <span style="animation: bounceIn 0.6s ease 0.5s forwards;">a</span>
+        <span style="animation: bounceIn 0.6s ease 0.6s forwards;">t</span>
       </h1>
       <p class="tagline animate-on-scroll">あなたのビジネスに、最適な広告戦略を。</p>
     </div>
@@ -224,11 +210,14 @@
         </p>
         <img src="https://source.unsplash.com/960x540/?ai,technology" alt="AIの可能性" />
       </div>
-    </section><div style="text-align: center; margin-top: 40px;">
-  <button onclick="scrollToSection('contact')" style="padding: 12px 24px; font-size: 1.1rem; background: #ff4500; color: white; border: none; border-radius: 6px; cursor: pointer; transition: background 0.3s;">
-    お問い合わせはこちら
-  </button>
-</div>
+    </section>
+
+    <div style="text-align: center; margin-top: 40px;">
+      <button onclick="scrollToSection('contact')" style="padding: 12px 24px; font-size: 1.1rem; background: #ff4500; color: white; border: none; border-radius: 6px; cursor: pointer; transition: background 0.3s;">
+        お問い合わせはこちら
+      </button>
+    </div>
+  </div>
 
   <div id="services" class="section">
     <h2>サービス紹介</h2>
@@ -263,51 +252,45 @@
   </footer>
 
   <script>
-  const buttons = document.querySelectorAll("nav button");
-  const sections = document.querySelectorAll(".section");
+    const buttons = document.querySelectorAll("nav button");
+    const sections = document.querySelectorAll(".section");
 
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      const target = button.dataset.section;
-      buttons.forEach(btn => btn.classList.remove("active"));
-      button.classList.add("active");
-      sections.forEach(section => {
-        section.classList.toggle("active", section.id === target);
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.section;
+        buttons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        sections.forEach(section => {
+          section.classList.toggle("active", section.id === target);
+        });
       });
     });
-  });
 
-  // ✅ スクロールで特定セクションに移動
-  function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      // 他のセクションを非表示に
-      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-      section.classList.add('active');
-
-      // ナビのボタンも切り替え
-      document.querySelectorAll('nav button').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.section === sectionId);
-      });
-
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  // ✅ アニメーション用 IntersectionObserver
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("in-view");
-      } else {
-        entry.target.classList.remove("in-view");
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        section.classList.add('active');
+        document.querySelectorAll('nav button').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.section === sectionId);
+        });
+        section.scrollIntoView({ behavior: 'smooth' });
       }
-    });
-  }, { threshold: 0.3 });
+    }
 
-  document.querySelectorAll(".animate-on-scroll, .highlight").forEach(el => {
-    observer.observe(el);
-  });
-</script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        } else {
+          entry.target.classList.remove("in-view");
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll(".animate-on-scroll, .highlight").forEach(el => {
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>

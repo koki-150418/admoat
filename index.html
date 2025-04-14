@@ -52,7 +52,6 @@
       opacity: 1;
     }
 
-    /* ✅ 完全に画面全幅に貼り付け */
     .hero {
       text-align: center;
       background: linear-gradient(45deg, #ff4500, #ffa500);
@@ -70,7 +69,6 @@
 
     .logo.in-view span {
       animation: bounceIn 0.6s ease forwards;
-      animation-fill-mode: forwards;
     }
 
     .logo.in-view span:nth-child(1) { animation-delay: 0.1s; }
@@ -90,7 +88,6 @@
         transform: translateY(-10px) scale(1.1);
       }
       100% {
-        opacity: 1;
         transform: translateY(0) scale(1);
       }
     }
@@ -112,43 +109,54 @@
     }
 
     .highlights {
-  max-width: 900px;
-  margin: 80px auto 60px;
-  padding: 0 20px;
-}
+      max-width: 900px;
+      margin: 80px auto 60px;
+      padding: 0 20px;
+    }
 
-.highlight {
-  margin-bottom: 50px;
-  padding: 30px 25px;
-  background: #fefaf7; /* より白に近い背景色 */
-  border-left: 6px solid #ff7a00; /* 柔らかいオレンジ */
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.06); /* 影を柔らかく大きめに */
-  transition: transform 0.3s ease;
-}
+    .highlight {
+      margin-bottom: 50px;
+      padding: 30px 25px;
+      background: #fefaf7;
+      border-left: 6px solid #ff7a00;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
 
-.highlight:hover {
-  transform: translateY(-4px);
-}
+      /* ✅ フリップアニメーション用 */
+      opacity: 0;
+      transform: rotateY(90deg);
+      transform-origin: center;
+      transition: all 0.8s ease;
+      backface-visibility: hidden;
+    }
 
-.highlight h3 {
-  margin-top: 0;
-  color: #ff4500;
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
+    .highlight.in-view {
+      opacity: 1;
+      transform: rotateY(0deg);
+    }
 
-.highlight p {
-  line-height: 1.75;
-  font-size: 1.05rem;
-  color: #333;
-}
+    .highlight:nth-of-type(1).in-view { transition-delay: 0.1s; }
+    .highlight:nth-of-type(2).in-view { transition-delay: 0.3s; }
+    .highlight:nth-of-type(3).in-view { transition-delay: 0.5s; }
 
-.highlight img {
-  width: 100%;
-  border-radius: 10px;
-  margin-top: 20px;
-}
+    .highlight h3 {
+      margin-top: 0;
+      color: #ff4500;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .highlight p {
+      line-height: 1.75;
+      font-size: 1.05rem;
+      color: #333;
+    }
+
+    .highlight img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
 
     footer {
       text-align: center;
@@ -173,48 +181,49 @@
         <span>A</span><span>d</span><span>M</span><span>o</span><span>a</span><span>t</span>
       </h1>
       <p class="tagline animate-on-scroll">あなたのビジネスに、最適な広告戦略を。</p>
-      <section class="highlights">
-  <div class="highlight">
-    <h3>Web広告の魅力</h3>
-    <p>
-      📢 “広告の力”は、ビジネスの可能性を広げる。<br>
-      商品やサービスがどれだけ優れていても、<br>
-      「届いていない」ことが、最も大きな機会損失です。<br><br>
-      Web広告は、ターゲットに“今”伝えることができる手段。<br>
-      テレビCMでもなく、チラシでもない、<br>
-      “あなたの理想の顧客”にピンポイントで届けられる、ビジネスの加速装置です。
-    </p>
-    <img src="WEB広告イメージ画像.avif" alt="Web広告のイメージ" />
-  </div>
-
-  <div class="highlight">
-    <h3>最初に選ぶならMeta広告</h3>
-    <p>
-      🎯 Web広告を始めるなら、まずはMeta広告。<br>
-      Instagram・Facebookを中心に、幅広い年齢層にリーチ<br><br>
-      ✅ ビジュアル訴求力が高く、ブランドの世界観を伝えやすい<br>
-      ✅ 独自の機械学習により、少額でも効果が出やすい設計<br><br>
-      Meta広告は、広告初心者でも成果を出しやすく、<br>
-      初期投資を抑えながら“確かな反応”を得られる媒体です。
-    </p>
-    <img src="https://source.unsplash.com/960x540/?socialmedia" alt="Meta広告のイメージ" />
-  </div>
-
-  <div class="highlight">
-    <h3>生成AIの可能性</h3>
-    <p>
-      🤖 AIは「業務効率化ツール」では終わらない。<br>
-      生成AIの進化は、すでに“使わないと時代遅れ”に到達しています。<br><br>
-      ChatGPTに代表されるAIツールは、文章・画像・音声など、あらゆる制作業務を支援し、<br>
-      企画・教育・マーケティングの質とスピードを飛躍的に高めています。<br><br>
-      ・手が足りない…を、AIが補完する。<br>
-      ・アイデアが出ない…を、AIが加速する。<br>
-      ・属人化していた業務…を、AIが仕組みに変える。
-    </p>
-    <img src="https://source.unsplash.com/960x540/?ai,technology" alt="AIの可能性" />
-  </div>
-</section>
     </div>
+
+    <section class="highlights">
+      <div class="highlight">
+        <h3>Web広告の魅力</h3>
+        <p>
+          📢 “広告の力”は、ビジネスの可能性を広げる。<br>
+          商品やサービスがどれだけ優れていても、<br>
+          「届いていない」ことが、最も大きな機会損失です。<br><br>
+          Web広告は、ターゲットに“今”伝えることができる手段。<br>
+          テレビCMでもなく、チラシでもない、<br>
+          “あなたの理想の顧客”にピンポイントで届けられる、ビジネスの加速装置です。
+        </p>
+        <img src="WEB広告イメージ画像.avif" alt="Web広告のイメージ" />
+      </div>
+
+      <div class="highlight">
+        <h3>最初に選ぶならMeta広告</h3>
+        <p>
+          🎯 Web広告を始めるなら、まずはMeta広告。<br>
+          Instagram・Facebookを中心に、幅広い年齢層にリーチ<br><br>
+          ✅ ビジュアル訴求力が高く、ブランドの世界観を伝えやすい<br>
+          ✅ 独自の機械学習により、少額でも効果が出やすい設計<br><br>
+          Meta広告は、広告初心者でも成果を出しやすく、<br>
+          初期投資を抑えながら“確かな反応”を得られる媒体です。
+        </p>
+        <img src="https://source.unsplash.com/960x540/?socialmedia" alt="Meta広告のイメージ" />
+      </div>
+
+      <div class="highlight">
+        <h3>生成AIの可能性</h3>
+        <p>
+          🤖 AIは「業務効率化ツール」では終わらない。<br>
+          生成AIの進化は、すでに“使わないと時代遅れ”に到達しています。<br><br>
+          ChatGPTに代表されるAIツールは、文章・画像・音声など、あらゆる制作業務を支援し、<br>
+          企画・教育・マーケティングの質とスピードを飛躍的に高めています。<br><br>
+          ・手が足りない…を、AIが補完する。<br>
+          ・アイデアが出ない…を、AIが加速する。<br>
+          ・属人化していた業務…を、AIが仕組みに変える。
+        </p>
+        <img src="https://source.unsplash.com/960x540/?ai,technology" alt="AIの可能性" />
+      </div>
+    </section>
   </div>
 
   <div id="services" class="section">
@@ -264,7 +273,6 @@
       });
     });
 
-    // IntersectionObserverでアニメーションを管理
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -275,10 +283,9 @@
       });
     }, { threshold: 0.3 });
 
-    document.querySelectorAll(".animate-on-scroll").forEach(el => {
+    document.querySelectorAll(".animate-on-scroll, .highlight").forEach(el => {
       observer.observe(el);
     });
   </script>
 </body>
 </html>
-

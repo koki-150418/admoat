@@ -262,49 +262,51 @@
   </footer>
 
   <script>
-    const buttons = document.querySelectorAll("nav button");
-    const sections = document.querySelectorAll(".section");
+  const buttons = document.querySelectorAll("nav button");
+  const sections = document.querySelectorAll(".section");
 
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        const target = button.dataset.section;
-        buttons.forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active");
-        sections.forEach(section => {
-          section.classList.toggle("active", section.id === target);
-        });
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.section;
+      buttons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+      sections.forEach(section => {
+        section.classList.toggle("active", section.id === target);
       });
     });
+  });
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-        } else {
-          entry.target.classList.remove("in-view");
-        }
+  // ✅ スクロールで特定セクションに移動
+  function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      // 他のセクションを非表示に
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      section.classList.add('active');
+
+      // ナビのボタンも切り替え
+      document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.section === sectionId);
       });
-    }, { threshold: 0.3 });
 
-    document.querySelectorAll(".animate-on-scroll, .highlight").forEach(el => {
-      observer.observe(el);
-      // 🔽 スクロールで特定セクションにジャンプ
-function scrollToSection(sectionId) {
-  const section = document.getElementById(sectionId);
-  if (section) {
-    // 他のセクションを非表示に
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    section.classList.add('active');
-
-    // ナビのボタンも切り替え
-    document.querySelectorAll('nav button').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.section === sectionId);
-    });
-
-    section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
   }
-}
+
+  // ✅ アニメーション用 IntersectionObserver
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+      } else {
+        entry.target.classList.remove("in-view");
+      }
     });
-  </script>
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll(".animate-on-scroll, .highlight").forEach(el => {
+    observer.observe(el);
+  });
+</script>
 </body>
 </html>

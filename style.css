@@ -133,7 +133,9 @@ footer {
 .tagline {
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeUp 1s ease 1s forwards;
+}
+.tagline.in-view {
+  animation: fadeUp 1s ease 0.8s forwards;
 }
 
 @keyframes fadeUp {

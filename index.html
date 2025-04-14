@@ -132,7 +132,9 @@
   padding: 30px 25px;
   background: #f9f9f9; /* オレンジ感を抑えた明るいグレー */
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+border: 1px solid #ddd;     /* ← 境界線を追加 */
+background: #fff;           /* ← 白背景でくっきり */
   opacity: 0;
   transform: rotateY(90deg);
   transform-origin: center;
@@ -181,6 +183,13 @@
       color: white;
       margin-top: 40px;
     }
+
+    .highlight:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+   
   </style>
 </head>
 <body>

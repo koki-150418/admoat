@@ -300,6 +300,16 @@
     document.querySelectorAll(".animate-on-scroll, .highlight").forEach(el => {
       observer.observe(el);
     });
+    let scrollTimeout;
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  nav.classList.add('scrolling');
+
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    nav.classList.remove('scrolling');
+  }, 150); // スクロールが止まって150ms後に戻る
+});
   </script>
 </body>
 </html>

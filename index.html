@@ -352,19 +352,19 @@ background: #fff;           /* ← 白背景でくっきり */
     // ▼これに置き換える！
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    // AdMoatのロゴにだけ特別なアニメーション処理を追加
     if (entry.target.classList.contains('logo')) {
       if (entry.isIntersecting) {
         const spans = entry.target.querySelectorAll('span');
         spans.forEach((span, index) => {
-          // アニメーションをリセットして再生し直す
           span.style.animation = 'none';
-          span.offsetHeight; // ← これで再描画を強制
+          span.offsetHeight; // ← 強制再描画
           span.style.animation = `gravityBounce 1.6s ease ${index * 0.1}s forwards`;
+
+          // 👇ここを追加！
+          span.style.opacity = '1';
         });
       }
     } else {
-      // 他の要素は普通にin-viewクラスをつけ外しする
       if (entry.isIntersecting) {
         entry.target.classList.add("in-view");
       } else {

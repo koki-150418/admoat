@@ -178,7 +178,6 @@
   </footer>
 
   <script>
-    <script>
   const buttons = document.querySelectorAll("nav button");
   const sections = document.querySelectorAll(".section");
 
@@ -199,7 +198,7 @@
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
       } else {
-        entry.target.classList.remove('in-view'); // ← 何度も再生するならON
+        entry.target.classList.remove('in-view'); // 再表示時にも再生されるようにする
       }
     });
   }, {
@@ -210,21 +209,6 @@
     observer.observe(el);
   });
 </script>
-
-    const buttons = document.querySelectorAll("nav button");
-    const sections = document.querySelectorAll(".section");
-
-    buttons.forEach(button => {
-      button.addEventListener("click", () => {
-        const target = button.dataset.section;
-        buttons.forEach(btn => btn.classList.remove("active"));
-        button.classList.add("active");
-        sections.forEach(section => {
-          section.classList.toggle("active", section.id === target);
-        });
-      });
-    });
-  </script>
 </body>
 </html>
 

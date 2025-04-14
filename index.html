@@ -41,6 +41,7 @@
       display: none;
       max-width: 900px;
       padding: 20px;
+      margin: auto;
       opacity: 0;
       transition: opacity 0.5s ease;
     }
@@ -50,52 +51,48 @@
       opacity: 1;
     }
 
+    /* ✅ HEROスタイル修正 */
     .hero {
-  text-align: center;
-  background: linear-gradient(45deg, #ff4500, #ffa500);
-  color: white;
-  padding: 100px 0;
-  margin: 0;
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-}
+      text-align: center;
+      background: linear-gradient(45deg, #ff4500, #ffa500);
+      color: white;
+      padding: 100px 20px;
+      margin: 0;
+      width: 100%;
+    }
 
-.logo span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(20px) scale(0.8);
-}
+    .logo span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px) scale(0.8);
+    }
 
-.logo.in-view span {
-  animation: bounceIn 0.6s ease forwards;
-  animation-fill-mode: forwards;
-}
+    .logo.in-view span {
+      animation: bounceIn 0.6s ease forwards;
+      animation-fill-mode: forwards;
+    }
 
-.logo.in-view span:nth-child(1) { animation-delay: 0.1s; }
-.logo.in-view span:nth-child(2) { animation-delay: 0.2s; }
-.logo.in-view span:nth-child(3) { animation-delay: 0.3s; }
-.logo.in-view span:nth-child(4) { animation-delay: 0.4s; }
-.logo.in-view span:nth-child(5) { animation-delay: 0.5s; }
-.logo.in-view span:nth-child(6) { animation-delay: 0.6s; }
+    .logo.in-view span:nth-child(1) { animation-delay: 0.1s; }
+    .logo.in-view span:nth-child(2) { animation-delay: 0.2s; }
+    .logo.in-view span:nth-child(3) { animation-delay: 0.3s; }
+    .logo.in-view span:nth-child(4) { animation-delay: 0.4s; }
+    .logo.in-view span:nth-child(5) { animation-delay: 0.5s; }
+    .logo.in-view span:nth-child(6) { animation-delay: 0.6s; }
 
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.8);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-10px) scale(1.1);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
 
     .tagline {
       opacity: 0;
@@ -166,54 +163,17 @@
   <div id="home" class="section active">
     <div class="hero">
       <h1 class="logo animate-on-scroll">
-  <span>A</span><span>d</span><span>M</span><span>o</span><span>a</span><span>t</span>
-</h1>
+        <span>A</span><span>d</span><span>M</span><span>o</span><span>a</span><span>t</span>
+      </h1>
       <p class="tagline animate-on-scroll">あなたのビジネスに、最適な広告戦略を。</p>
     </div>
 
     <section class="highlights">
-      <div class="highlight">
-        <h3>🟧 Web広告の魅力</h3>
-        <p>
-          📢 “広告の力”は、ビジネスの可能性を広げる。<br>
-          商品やサービスがどれだけ優れていても、<br>
-          「届いていない」ことが、最も大きな機会損失です。<br><br>
-          Web広告は、ターゲットに“今”伝えることができる手段。<br>
-          テレビCMでもなく、チラシでもない、<br>
-          “あなたの理想の顧客”にピンポイントで届けられる、ビジネスの加速装置です。
-        </p>
-        <img src="WEB広告イメージ画像.avif" alt="Web広告のイメージ" />
-      </div>
-
-      <div class="highlight">
-        <h3>🟧 最初に選ぶならMeta広告</h3>
-        <p>
-          🎯 Web広告を始めるなら、まずはMeta広告。<br>
-          Instagram・Facebookを中心に、幅広い年齢層にリーチ<br><br>
-          ✅ ビジュアル訴求力が高く、ブランドの世界観を伝えやすい<br>
-          ✅ 独自の機械学習により、少額でも効果が出やすい設計<br><br>
-          Meta広告は、広告初心者でも成果を出しやすく、<br>
-          初期投資を抑えながら“確かな反応”を得られる媒体です。
-        </p>
-        <img src="https://source.unsplash.com/960x540/?socialmedia" alt="Meta広告のイメージ" />
-      </div>
-
-      <div class="highlight">
-        <h3>🟧 生成AIの可能性</h3>
-        <p>
-          🤖 AIは「業務効率化ツール」では終わらない。<br>
-          生成AIの進化は、すでに“使わないと時代遅れ”に到達しています。<br><br>
-          ChatGPTに代表されるAIツールは、文章・画像・音声など、あらゆる制作業務を支援し、<br>
-          企画・教育・マーケティングの質とスピードを飛躍的に高めています。<br><br>
-          ・手が足りない…を、AIが補完する。<br>
-          ・アイデアが出ない…を、AIが加速する。<br>
-          ・属人化していた業務…を、AIが仕組みに変える。
-        </p>
-        <img src="https://source.unsplash.com/960x540/?ai,technology" alt="AIの可能性" />
-      </div>
+      <!-- ここにハイライトセクション -->
     </section>
   </div>
 
+  <!-- 他のセクション -->
   <div id="services" class="section">
     <h2>サービス紹介</h2>
     <ul>
@@ -261,6 +221,7 @@
       });
     });
 
+    // IntersectionObserverで.in-viewを切り替える
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {

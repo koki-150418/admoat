@@ -57,46 +57,45 @@
   padding: 100px 0;
   margin: 0;
   width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
-.section {
-  display: none;
-  max-width: 900px;
-  padding: 20px;
+.logo span {
+  display: inline-block;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transform: translateY(20px) scale(0.8);
 }
 
-    .logo span {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px) scale(0.8);
-    }
+.logo.in-view span {
+  animation: bounceIn 0.6s ease forwards;
+  animation-fill-mode: forwards;
+}
 
-    .logo.in-view span {
-      animation: bounceIn 0.6s ease forwards;
-    }
+.logo.in-view span:nth-child(1) { animation-delay: 0.1s; }
+.logo.in-view span:nth-child(2) { animation-delay: 0.2s; }
+.logo.in-view span:nth-child(3) { animation-delay: 0.3s; }
+.logo.in-view span:nth-child(4) { animation-delay: 0.4s; }
+.logo.in-view span:nth-child(5) { animation-delay: 0.5s; }
+.logo.in-view span:nth-child(6) { animation-delay: 0.6s; }
 
-    .logo.in-view span:nth-child(1) { animation-delay: 0.1s; }
-    .logo.in-view span:nth-child(2) { animation-delay: 0.2s; }
-    .logo.in-view span:nth-child(3) { animation-delay: 0.3s; }
-    .logo.in-view span:nth-child(4) { animation-delay: 0.4s; }
-    .logo.in-view span:nth-child(5) { animation-delay: 0.5s; }
-    .logo.in-view span:nth-child(6) { animation-delay: 0.6s; }
-
-    @keyframes bounceIn {
-      0% {
-        opacity: 0;
-        transform: translateY(20px) scale(0.8);
-      }
-      60% {
-        opacity: 1;
-        transform: translateY(-10px) scale(1.1);
-      }
-      100% {
-        transform: translateY(0) scale(1);
-      }
-    }
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 
     .tagline {
       opacity: 0;
@@ -167,8 +166,8 @@
   <div id="home" class="section active">
     <div class="hero">
       <h1 class="logo animate-on-scroll">
-        <span>A</span><span>d</span><span>M</span><span>o</span><span>a</span><span>t</span>
-      </h1>
+  <span>A</span><span>d</span><span>M</span><span>o</span><span>a</span><span>t</span>
+</h1>
       <p class="tagline animate-on-scroll">あなたのビジネスに、最適な広告戦略を。</p>
     </div>
 

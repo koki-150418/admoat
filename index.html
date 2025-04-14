@@ -252,28 +252,24 @@
       });
     });
 
-    // アニメーション発火：IntersectionObserver
+    // アニメーション用IntersectionObserver
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !entry.target.classList.contains('in-view')) {
           entry.target.classList.add('in-view');
-        } else {
-          entry.target.classList.remove('in-view'); // コメントアウトすれば1回のみ発火になる
         }
       });
     }, { threshold: 0.3 });
 
-    // 監視対象を登録
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
       observer.observe(el);
     });
 
-    // 初回ロード時にin-viewを手動でつける
     window.addEventListener("load", () => {
       document.querySelectorAll('.animate-on-scroll').forEach(el => {
         const rect = el.getBoundingClientRect();
         if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-          el.classList.add('in-view');
+          el.classList.add("in-view");
         }
       });
     });

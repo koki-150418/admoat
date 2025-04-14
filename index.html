@@ -1,146 +1,280 @@
-body {
-  margin: 0;
-  font-family: 'Helvetica Neue', sans-serif;
-  background: #fff;
-  color: #111;
-}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdMoat｜LP</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: #fff;
+      color: #111;
+    }
 
-header {
-  background: linear-gradient(45deg, #ff4500, #ffa500);
-  color: white;
-  padding: 60px 20px;
-  text-align: center;
-}
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      background: #111;
+    }
 
-header h1 {
-  font-size: 3rem;
-  margin-bottom: 0.5em;
-}
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 10px 15px;
+    }
 
-.form-section {
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
-}
+    nav button.active {
+      border-bottom: 2px solid #ffa500;
+    }
 
-.form-section h2 {
-  text-align: center;
-  color: #ff4500;
-}
+    .section {
+      display: none;
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
+    .section.active {
+      display: block;
+      opacity: 1;
+    }
 
-input, textarea {
-  padding: 10px;
-  border: 1px solid #ddd;
-  font-size: 1rem;
-  border-radius: 5px;
-}
+    .hero {
+      text-align: center;
+      background: linear-gradient(45deg, #ff4500, #ffa500);
+      color: white;
+      padding: 80px 20px;
+    }
 
-button {
-  background: #ff4500;
-  color: white;
-  border: none;
-  padding: 12px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
+    .logo span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px) scale(0.8);
+    }
 
-button:hover {
-  background: #e63900;
-}
+    .logo.in-view span {
+      animation: bounceIn 0.6s ease forwards;
+    }
 
-footer {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
-}
+    .logo.in-view span:nth-child(1) { animation-delay: 0.1s; }
+    .logo.in-view span:nth-child(2) { animation-delay: 0.2s; }
+    .logo.in-view span:nth-child(3) { animation-delay: 0.3s; }
+    .logo.in-view span:nth-child(4) { animation-delay: 0.4s; }
+    .logo.in-view span:nth-child(5) { animation-delay: 0.5s; }
+    .logo.in-view span:nth-child(6) { animation-delay: 0.6s; }
 
-/* アニメーション */
-.fade-in, .fade-in-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 1s ease-out;
-}
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.1);
+      }
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
 
-.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-.highlights {
-  max-width: 960px;
-  margin: 60px auto;
-  padding: 20px;
-}
+    .tagline {
+      opacity: 0;
+      transform: translateY(30px);
+    }
 
-.highlight {
-  margin-bottom: 50px;
-  padding: 30px;
-  background: #fff7f0;
-  border-left: 8px solid #ff4500;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-}
+    .tagline.in-view {
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
 
-.highlight h3 {
-  margin-top: 0;
-  color: #ff4500;
-  font-size: 1.4rem;
-}
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-.highlight p {
-  line-height: 1.8;
-  font-size: 1.05rem;
-  color: #333;
-}
-.logo span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(20px) scale(0.8);
-}
-.logo.in-view span {
-  animation: bounceIn 0.6s ease forwards;
-}
-.logo.in-view span:nth-child(1) { animation-delay: 0.1s; }
-.logo.in-view span:nth-child(2) { animation-delay: 0.2s; }
-.logo.in-view span:nth-child(3) { animation-delay: 0.3s; }
-.logo.in-view span:nth-child(4) { animation-delay: 0.4s; }
-.logo.in-view span:nth-child(5) { animation-delay: 0.5s; }
-.logo.in-view span:nth-child(6) { animation-delay: 0.6s; }
+    .highlights {
+      max-width: 960px;
+      margin: 60px auto;
+      padding: 20px;
+    }
 
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.8);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-10px) scale(1.1);
-  }
-  100% {
-    transform: translateY(0) scale(1);
-  }
-}
+    .highlight {
+      margin-bottom: 50px;
+      padding: 30px;
+      background: #fff7f0;
+      border-left: 8px solid #ff4500;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
 
-.tagline {
-  opacity: 0;
-  transform: translateY(30px);
-}
-.tagline.in-view {
-  animation: fadeUp 1s ease 0.8s forwards;
-}
+    .highlight h3 {
+      margin-top: 0;
+      color: #ff4500;
+      font-size: 1.4rem;
+    }
 
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    .highlight p {
+      line-height: 1.8;
+      font-size: 1.05rem;
+      color: #333;
+    }
+
+    .highlight img {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <button data-section="home" class="active">ホーム</button>
+    <button data-section="services">サービス</button>
+    <button data-section="company">会社概要</button>
+    <button data-section="contact">お問い合わせ</button>
+  </nav>
+
+  <div id="home" class="section active">
+    <div class="hero">
+      <h1 class="logo animate-on-scroll">
+        <span>A</span><span>d</span><span>M</span><span>o</span><span>a</span><span>t</span>
+      </h1>
+      <p class="tagline animate-on-scroll">あなたのビジネスに、最適な広告戦略を。</p>
+    </div>
+
+    <section class="highlights">
+      <div class="highlight">
+        <h3>🟧 Web広告の魅力</h3>
+        <p>
+          📢 “広告の力”は、ビジネスの可能性を広げる。<br>
+          商品やサービスがどれだけ優れていても、<br>
+          「届いていない」ことが、最も大きな機会損失です。<br><br>
+          Web広告は、ターゲットに“今”伝えることができる手段。<br>
+          テレビCMでもなく、チラシでもない、<br>
+          “あなたの理想の顧客”にピンポイントで届けられる、ビジネスの加速装置です。
+        </p>
+        <img src="WEB広告イメージ画像.avif" alt="Web広告のイメージ" />
+      </div>
+
+      <div class="highlight">
+        <h3>🟧 最初に選ぶならMeta広告</h3>
+        <p>
+          🎯 Web広告を始めるなら、まずはMeta広告。<br>
+          Instagram・Facebookを中心に、幅広い年齢層にリーチ<br><br>
+          ✅ ビジュアル訴求力が高く、ブランドの世界観を伝えやすい<br>
+          ✅ 独自の機械学習により、少額でも効果が出やすい設計<br><br>
+          Meta広告は、広告初心者でも成果を出しやすく、<br>
+          初期投資を抑えながら“確かな反応”を得られる媒体です。
+        </p>
+        <img src="https://source.unsplash.com/960x540/?socialmedia" alt="Meta広告のイメージ" />
+      </div>
+
+      <div class="highlight">
+        <h3>🟧 生成AIの可能性</h3>
+        <p>
+          🤖 AIは「業務効率化ツール」では終わらない。<br>
+          生成AIの進化は、すでに“使わないと時代遅れ”に到達しています。<br><br>
+          ChatGPTに代表されるAIツールは、文章・画像・音声など、あらゆる制作業務を支援し、<br>
+          企画・教育・マーケティングの質とスピードを飛躍的に高めています。<br><br>
+          ・手が足りない…を、AIが補完する。<br>
+          ・アイデアが出ない…を、AIが加速する。<br>
+          ・属人化していた業務…を、AIが仕組みに変える。
+        </p>
+        <img src="https://source.unsplash.com/960x540/?ai,technology" alt="AIの可能性" />
+      </div>
+    </section>
+  </div>
+
+  <div id="services" class="section">
+    <h2>サービス紹介</h2>
+    <ul>
+      <li>広告運用代行（Meta, Google広告など）</li>
+      <li>インハウス支援（伴走型支援）</li>
+      <li>AI×マーケティング導入支援</li>
+    </ul>
+  </div>
+
+  <div id="company" class="section">
+    <h2>会社概要</h2>
+    <p><strong>会社名：</strong>合同会社AdMoat（アドモート）</p>
+    <p><strong>所在地：</strong>青森県弘前市</p>
+    <p><strong>代表者：</strong>池田昂生</p>
+    <p><strong>設立：</strong>2025年</p>
+    <p><strong>事業内容：</strong>広告運用・インハウス支援・AI導入支援など</p>
+  </div>
+
+  <div id="contact" class="section">
+    <h2>お問い合わせ</h2>
+    <form action="https://formspree.io/f/XXXXXX" method="POST">
+      <input type="text" name="name" placeholder="お名前" required /><br /><br />
+      <input type="email" name="email" placeholder="メールアドレス" required /><br /><br />
+      <textarea name="message" placeholder="お問い合わせ内容" required></textarea><br /><br />
+      <button type="submit">送信</button>
+    </form>
+  </div>
+
+  <footer>
+    &copy; 2025 AdMoat. All rights reserved.
+  </footer>
+
+  <script>
+    // セクション切り替え
+    const buttons = document.querySelectorAll("nav button");
+    const sections = document.querySelectorAll(".section");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.section;
+        buttons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        sections.forEach(section => {
+          section.classList.toggle("active", section.id === target);
+        });
+      });
+    });
+
+    // アニメーション発火：IntersectionObserver
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, { threshold: 0.3 });
+
+    // animate-on-scroll を監視
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+
+    // ページ読み込み時に画面内なら即時 in-view
+    window.addEventListener("load", () => {
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+          el.classList.add('in-view');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

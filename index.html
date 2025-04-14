@@ -2,42 +2,131 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>お問い合わせ｜AdMoat</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdMoat｜LP</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: #fff;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      background: #111;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 10px 15px;
+    }
+    nav button.active {
+      border-bottom: 2px solid #ffa500;
+    }
+    .section {
+      display: none;
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .section.active {
+      display: block;
+      opacity: 1;
+    }
+    .hero {
+      text-align: center;
+      background: linear-gradient(45deg, #ff4500, #ffa500);
+      color: white;
+      padding: 80px 20px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-  <header class="fade-in">
-    <h1>AdMoat</h1>
-    <p>あなたのビジネスに、最適な広告戦略を。</p>
-  </header>
+  <nav>
+    <button data-section="home" class="active">ホーム</button>
+    <button data-section="services">サービス</button>
+    <button data-section="company">会社概要</button>
+    <button data-section="contact">お問い合わせ</button>
+  </nav>
 
-  <section class="form-section fade-in-up">
+  <div id="home" class="section active">
+    <div class="hero">
+      <h1>AdMoat</h1>
+      <p>あなたのビジネスに、最適な広告戦略を。</p>
+    </div>
+  </div>
+
+  <div id="services" class="section">
+    <h2>サービス紹介</h2>
+    <ul>
+      <li>広告運用代行（Meta, Google広告など）</li>
+      <li>インハウス支援（伴走型支援）</li>
+      <li>AI・自動化ツール導入支援</li>
+    </ul>
+  </div>
+
+  <div id="company" class="section">
+    <h2>会社概要</h2>
+    <p><strong>会社名：</strong>合同会社AdMoat（アドモート）</p>
+    <p><strong>所在地：</strong>青森県弘前市</p>
+    <p><strong>代表者：</strong>池田昂生</p>
+    <p><strong>設立：</strong>2025年</p>
+    <p><strong>事業内容：</strong>広告運用・インハウス支援・AI活用サポート</p>
+  </div>
+
+  <div id="contact" class="section">
     <h2>お問い合わせ</h2>
     <form action="https://formspree.io/f/XXXXXX" method="POST">
-      <input type="text" name="name" placeholder="お名前" required />
-      <input type="email" name="email" placeholder="メールアドレス" required />
-      <textarea name="message" placeholder="お問い合わせ内容" required></textarea>
+      <input type="text" name="name" placeholder="お名前" required /><br /><br />
+      <input type="email" name="email" placeholder="メールアドレス" required /><br /><br />
+      <textarea name="message" placeholder="お問い合わせ内容" required></textarea><br /><br />
       <button type="submit">送信</button>
     </form>
-  </section>
+  </div>
 
-  <footer class="fade-in">
-    <p>&copy; 2025 AdMoat. All rights reserved.</p>
+  <footer>
+    &copy; 2025 AdMoat. All rights reserved.
   </footer>
 
   <script>
-    // スクロール時のアニメーション
-    const fadeEls = document.querySelectorAll('.fade-in, .fade-in-up');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-        }
-      });
-    }, { threshold: 0.1 });
+    const buttons = document.querySelectorAll("nav button");
+    const sections = document.querySelectorAll(".section");
 
-    fadeEls.forEach(el => observer.observe(el));
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.section;
+
+        // ボタン切り替え
+        buttons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        // セクション切り替え
+        sections.forEach(section => {
+          if (section.id === target) {
+            section.classList.add("active");
+          } else {
+            section.classList.remove("active");
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>

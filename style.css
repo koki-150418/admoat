@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+header {
+  background: linear-gradient(45deg, #ff4500, #ffa500);
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5em;
+}
+
+.form-section {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.form-section h2 {
+  text-align: center;
+  color: #ff4500;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  border-radius: 5px;
+}
+
+button {
+  background: #ff4500;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #e63900;
+}
+
+footer {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+/* アニメーション */
+.fade-in, .fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s ease-out;
+}
+
+.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}

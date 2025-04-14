@@ -75,3 +75,29 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+.highlights {
+  max-width: 960px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+.highlight {
+  margin-bottom: 50px;
+  padding: 30px;
+  background: #fff7f0;
+  border-left: 8px solid #ff4500;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.highlight h3 {
+  margin-top: 0;
+  color: #ff4500;
+  font-size: 1.4rem;
+}
+
+.highlight p {
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: #333;
+}

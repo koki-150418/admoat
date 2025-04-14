@@ -68,7 +68,9 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: linear-gradient(135deg, #ff6a00 0%, #ff3c00 50%, #ffa500 100%);
+  background: linear-gradient(135deg, #ff6a00, #ff3c00, #ffa500);
+  background-size: 400% 400%;
+  animation: gradientMove 8s ease infinite;
   color: white;
   width: 100vw;
   position: relative;
@@ -77,6 +79,11 @@
   padding-top: 120px;
   padding-bottom: 60px;
   margin: 0;
+}
+    @keyframes gradientMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
     .logo {

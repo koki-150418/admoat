@@ -204,6 +204,28 @@ background: #fff;           /* ← 白背景でくっきり */
   box-shadow: 0 10px 24px rgba(0,0,0,0.15);
   transition: all 0.3s ease;
 }
+    /* これを .highlight の下あたりの CSS に追加してね */
+#backToTop {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999;
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+#backToTop:hover {
+  opacity: 1;
+}
+
    @keyframes gravityBounce {
   0%   { transform: translateY(-200px); opacity: 0; }
   40%  { transform: translateY(0); opacity: 1; }
@@ -337,6 +359,22 @@ background: #fff;           /* ← 白背景でくっきり */
   </footer>
 
   <script>
+    const backToTopBtn = document.getElementById("backToTop");
+
+backToTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    backToTopBtn.style.display = "block";
+  } else {
+    backToTopBtn.style.display = "none";
+  }
+});
+
+backToTopBtn.style.display = "none";
+
     const buttons = document.querySelectorAll("nav button");
     const sections = document.querySelectorAll(".section");
 
@@ -404,5 +442,7 @@ window.addEventListener('scroll', () => {
   }, 150); // スクロールが止まって150ms後に戻る
 });
   </script>
+  <button id="backToTop" title="トップに戻る">↑</button>
+  
 </body>
 </html>

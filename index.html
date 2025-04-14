@@ -223,8 +223,11 @@
         </p>
         <img src="https://source.unsplash.com/960x540/?ai,technology" alt="AIの可能性" />
       </div>
-    </section>
-  </div>
+    </section><div style="text-align: center; margin-top: 40px;">
+  <button onclick="scrollToSection('contact')" style="padding: 12px 24px; font-size: 1.1rem; background: #ff4500; color: white; border: none; border-radius: 6px; cursor: pointer; transition: background 0.3s;">
+    お問い合わせはこちら
+  </button>
+</div>
 
   <div id="services" class="section">
     <h2>サービス紹介</h2>
@@ -285,6 +288,22 @@
 
     document.querySelectorAll(".animate-on-scroll, .highlight").forEach(el => {
       observer.observe(el);
+      // 🔽 スクロールで特定セクションにジャンプ
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    // 他のセクションを非表示に
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    section.classList.add('active');
+
+    // ナビのボタンも切り替え
+    document.querySelectorAll('nav button').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.section === sectionId);
+    });
+
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+}
     });
   </script>
 </body>

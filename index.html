@@ -9,8 +9,9 @@
       box-sizing: border-box;
     }
 
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       font-family: 'Helvetica Neue', sans-serif;
       background: #fff;
       color: #111;
@@ -51,14 +52,14 @@
       opacity: 1;
     }
 
-    /* ✅ HEROスタイル修正 */
+    /* ✅ 完全に画面全幅に貼り付け */
     .hero {
       text-align: center;
       background: linear-gradient(45deg, #ff4500, #ffa500);
       color: white;
       padding: 100px 20px;
-      margin: 0;
       width: 100%;
+      margin: 0;
     }
 
     .logo span {
@@ -166,14 +167,50 @@
         <span>A</span><span>d</span><span>M</span><span>o</span><span>a</span><span>t</span>
       </h1>
       <p class="tagline animate-on-scroll">あなたのビジネスに、最適な広告戦略を。</p>
-    </div>
-
-    <section class="highlights">
-      <!-- ここにハイライトセクション -->
-    </section>
+      <section class="highlights">
+  <div class="highlight">
+    <h3>🟧 Web広告の魅力</h3>
+    <p>
+      📢 “広告の力”は、ビジネスの可能性を広げる。<br>
+      商品やサービスがどれだけ優れていても、<br>
+      「届いていない」ことが、最も大きな機会損失です。<br><br>
+      Web広告は、ターゲットに“今”伝えることができる手段。<br>
+      テレビCMでもなく、チラシでもない、<br>
+      “あなたの理想の顧客”にピンポイントで届けられる、ビジネスの加速装置です。
+    </p>
+    <img src="WEB広告イメージ画像.avif" alt="Web広告のイメージ" />
   </div>
 
-  <!-- 他のセクション -->
+  <div class="highlight">
+    <h3>🟧 最初に選ぶならMeta広告</h3>
+    <p>
+      🎯 Web広告を始めるなら、まずはMeta広告。<br>
+      Instagram・Facebookを中心に、幅広い年齢層にリーチ<br><br>
+      ✅ ビジュアル訴求力が高く、ブランドの世界観を伝えやすい<br>
+      ✅ 独自の機械学習により、少額でも効果が出やすい設計<br><br>
+      Meta広告は、広告初心者でも成果を出しやすく、<br>
+      初期投資を抑えながら“確かな反応”を得られる媒体です。
+    </p>
+    <img src="https://source.unsplash.com/960x540/?socialmedia" alt="Meta広告のイメージ" />
+  </div>
+
+  <div class="highlight">
+    <h3>🟧 生成AIの可能性</h3>
+    <p>
+      🤖 AIは「業務効率化ツール」では終わらない。<br>
+      生成AIの進化は、すでに“使わないと時代遅れ”に到達しています。<br><br>
+      ChatGPTに代表されるAIツールは、文章・画像・音声など、あらゆる制作業務を支援し、<br>
+      企画・教育・マーケティングの質とスピードを飛躍的に高めています。<br><br>
+      ・手が足りない…を、AIが補完する。<br>
+      ・アイデアが出ない…を、AIが加速する。<br>
+      ・属人化していた業務…を、AIが仕組みに変える。
+    </p>
+    <img src="https://source.unsplash.com/960x540/?ai,technology" alt="AIの可能性" />
+  </div>
+</section>
+    </div>
+  </div>
+
   <div id="services" class="section">
     <h2>サービス紹介</h2>
     <ul>
@@ -221,7 +258,7 @@
       });
     });
 
-    // IntersectionObserverで.in-viewを切り替える
+    // IntersectionObserverでアニメーションを管理
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -238,3 +275,4 @@
   </script>
 </body>
 </html>
+

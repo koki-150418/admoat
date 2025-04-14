@@ -349,19 +349,36 @@ background: #fff;           /* ← 白背景でくっきり */
       }
     }
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-        } else {
-          entry.target.classList.remove("in-view");
-        }
-      });
-    }, { threshold: 0.3 });
+    // ▼これに置き換える！
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    // AdMoatのロゴにだけ特別なアニメーション処理を追加
+    if (entry.target.classList.contains('logo')) {
+      if (entry.isIntersecting) {
+        const spans = entry.target.querySelectorAll('span');
+        spans.forEach((span, index) => {
+          // アニメーションをリセットして再生し直す
+          span.style.animation = 'none';
+          span.offsetHeight; // ← これで再描画を強制
+          span.style.animation = `gravityBounce 1.6s ease ${index * 0.1}s forwards`;
+        });
+      }
+    } else {
+      // 他の要素は普通にin-viewクラスをつけ外しする
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+      } else {
+        entry.target.classList.remove("in-view");
+      }
+    }
+  });
+}, { threshold: 0.3 });
 
-    document.querySelectorAll(".animate-on-scroll, .highlight").forEach(el => {
-      observer.observe(el);
-    });
+// 対象に .logo も含めて監視対象にする
+document.querySelectorAll(".animate-on-scroll, .highlight, .logo").forEach(el => {
+  observer.observe(el);
+});
+
     let scrollTimeout;
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');

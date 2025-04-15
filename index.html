@@ -21,7 +21,7 @@
       display: flex;
       justify-content: center;
       gap: 20px;
-      padding: 20px;
+      padding: 20px; /* 元のパディングを維持 */
       background: #111;
       position: fixed;
       top: 0;
@@ -29,7 +29,6 @@
       right: 0;
       z-index: 1000;
       transition: background 0.3s ease;
-      height: 60px; /* 固定の高さを設定 */
     }
 
     nav.scrolling {
@@ -57,7 +56,11 @@
       opacity: 0;
       transition: opacity 0.5s ease;
       margin-top: 0;
-      padding-top: 80px; /* ナビゲーションバーの高さ+余白 */
+    }
+
+    /* ホームセクション以外のセクションに追加の上部パディングを設定 */
+    #services, #company, #contact {
+      padding-top: 80px; /* ナビゲーションバーの下に表示されるように調整 */
     }
 
     .section.active {
@@ -79,8 +82,8 @@
       position: relative;
       left: 50%;
       transform: translateX(-50%);
-      padding-top: 120px;
-      padding-bottom: 60px;
+      padding-top: 120px; /* 元のパディングを維持 */
+      padding-bottom: 60px; /* 元のパディングを維持 */
       margin: 0;
       margin-bottom: 0;
     }

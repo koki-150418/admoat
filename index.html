@@ -80,6 +80,7 @@
     padding-top: 120px; /* 上部の内側余白を120pxに設定 */
     padding-bottom: 60px; /* 下部の内側余白を60pxに設定　オレンジの下の幅 */
     margin: 0; /* 外側の余白をなくす */
+    margin-bottom: 0; /* ← 念のため追加しておこう */
   }
 
   @keyframes gradientMove {
@@ -138,7 +139,8 @@
 
     .highlights {
       max-width: 900px; /* 最大幅を900pxに設定 */
-      margin: 00px auto 60px; /* 上部80px、左右auto（中央揃え）、下部60pxのマージン設定 */
+      margin: 0px auto 60px; /* 上部80px、左右auto（中央揃え）、下部60pxのマージン設定 */
+      padding-top: 0;
       padding: 0 20px; /* 左右20pxの内側余白を設定 */
     }
 
@@ -161,6 +163,10 @@
       opacity: 1; /* 表示状態では完全に不透明に */
       transform: rotateY(0deg); /* 元の角度に戻す */
     }
+
+    .highlight:first-of-type {
+  margin-top: 0;
+}
 
     .highlight:nth-of-type(1).in-view { transition-delay: 0.1s; } /* 1番目の要素は0.1秒遅延 */
     .highlight:nth-of-type(2).in-view { transition-delay: 0.3s; } /* 2番目の要素は0.3秒遅延 */

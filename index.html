@@ -159,6 +159,10 @@
       backface-visibility: hidden; /* 裏面を非表示に設定 */
     }
 
+    .highlight:first-of-type {
+  margin-top: 0;
+  padding-top: 30px; /* ← これで元の余白を保持 */
+
     .highlight.in-view {
       opacity: 1; /* 表示状態では完全に不透明に */
       transform: rotateY(0deg); /* 元の角度に戻す */

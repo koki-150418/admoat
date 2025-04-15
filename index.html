@@ -309,7 +309,283 @@
 
     form button:hover {
       background: #e63900; /* ホバー時の背景色を濃いオレンジレッドに変更 */
-    }
+    }* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #fff;
+  color: #111;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background: #111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+
+nav.scrolling {
+  background: rgba(17, 17, 17, 0.8);
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 10px 15px;
+}
+
+nav button.active {
+  border-bottom: 2px solid #ffa500;
+}
+
+.section {
+  display: none;
+  max-width: 900px;
+  padding: 20px;
+  margin: auto;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  margin-top: 0;
+}
+
+.section.active {
+  display: block;
+  opacity: 1;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, #ff6a00, #ff3c00, #ffa500);
+  background-size: 600% 600%;
+  animation: gradientMove 3s ease infinite;
+  color: white;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-top: 120px;
+  padding-bottom: 60px;
+  margin: 0;
+  margin-bottom: 0;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.logo {
+  font-size: 3rem;
+  margin-top: 40px;
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.tagline {
+  margin-top: 3px;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.tagline.in-view {
+  animation: fadeUp 1s ease 0.8s forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.highlights {
+  max-width: 900px;
+  margin: 40px auto 60px; /* ← heroとの間に余白追加 */
+  padding: 0 20px;
+}
+
+.highlight {
+  margin-bottom: 50px;
+  padding: 30px 25px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  border: 1px solid #ddd;
+  opacity: 0;
+  transform: rotateY(90deg);
+  transform-origin: center;
+  transition: all 0.8s ease;
+  backface-visibility: hidden;
+}
+
+.highlight:first-of-type {
+  padding-top: 30px; /* ← タイトルとの間の余白 */
+}
+
+.highlight.in-view {
+  opacity: 1;
+  transform: rotateY(0deg);
+}
+
+.highlight:nth-of-type(1).in-view { transition-delay: 0.1s; }
+.highlight:nth-of-type(2).in-view { transition-delay: 0.3s; }
+.highlight:nth-of-type(3).in-view { transition-delay: 0.5s; }
+
+.highlight h3 {
+  margin: 0 auto 20px;
+  padding: 12px 20px;
+  text-align: center;
+  color: white;
+  background: #333;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  width: fit-content;
+  max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.highlight p {
+  line-height: 1.75;
+  font-size: 1.05rem;
+  color: #333;
+  text-align: center;
+}
+
+.highlight img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.highlight:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: white;
+  margin-top: 40px;
+}
+
+#backToTop {
+  position: fixed;
+  bottom: 70px;
+  left: 150px;
+  z-index: 999;
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  font-size: 3.0rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+#backToTop:hover {
+  opacity: 1;
+}
+
+@keyframes gravityBounce {
+  0%   { transform: translateY(-200px); opacity: 0; }
+  40%  { transform: translateY(0); opacity: 1; }
+  55%  { transform: translateY(-30px); }
+  70%  { transform: translateY(0); }
+  80%  { transform: translateY(-15px); }
+  90%  { transform: translateY(0); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.logo span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-200px);
+}
+
+.logo.in-view span {
+  animation: gravityBounce 1.6s ease forwards;
+}
+
+.logo.in-view span:nth-child(1) { animation-delay: 0s; }
+.logo.in-view span:nth-child(2) { animation-delay: 0.1s; }
+.logo.in-view span:nth-child(3) { animation-delay: 0.2s; }
+.logo.in-view span:nth-child(4) { animation-delay: 0.3s; }
+.logo.in-view span:nth-child(5) { animation-delay: 0.4s; }
+.logo.in-view span:nth-child(6) { animation-delay: 0.5s; }
+
+.contact-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.google-form {
+  width: 100%;
+  height: 700px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .google-form {
+    height: 800px;
+  }
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+form textarea {
+  height: 150px;
+}
+
+form button {
+  padding: 12px 24px;
+  background: #ff4500;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+form button:hover {
+  background: #e63900;
+}
   </style>
 </head>
 <body>

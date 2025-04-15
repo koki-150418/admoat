@@ -1,596 +1,323 @@
-<!DOCTYPE html> <!-- HTML5で作成されていることを宣言 -->
-<html lang="ja"> <!-- 日本語サイトであることを示す -->
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" /> <!-- 文字コードをUTF-8に設定 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- モバイル端末での表示を最適化 -->
-  <title>AdMoat｜LP</title> <!-- ブラウザのタブに表示されるタイトル -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdMoat｜LP</title>
   <style>
     * {
-      box-sizing: border-box; /* 全要素のサイズ計算方法をボーダーボックスに設定（パディングやボーダーを幅に含める） */
+      box-sizing: border-box;
     }
 
     html, body {
-      margin: 0; /* 余白をなくす */
-      padding: 0; /* 内側の余白もなくす */
-      font-family: 'Helvetica Neue', sans-serif; /* フォントをHelvetica Neueに設定、なければサンセリフフォントを使用 */
-      background: #fff; /* 背景色を白に設定 */
-      color: #111; /* 文字色を濃いグレーに設定 */
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background: #fff;
+      color: #111;
     }
 
-     nav {
-      display: flex; /* フレックスボックスレイアウトを使用 */
-      justify-content: center; /* 中央揃えにする */
-      gap: 20px; /* 要素間の間隔を20pxに設定 */
-      padding: 20px; /* 内側の余白を20pxに設定 */
-      background: #111; /* 背景色を濃いグレーに設定 */
-      position: fixed; /* 画面上部に固定表示 */
-      top: 0; /* 上端からの位置を0に設定 */
-      left: 0; /* 左端からの位置を0に設定 */
-      right: 0; /* 右端からの位置を0に設定（幅いっぱいに広げる） */
-      z-index: 1000; /* 重なり順を設定（他の要素より前面に表示） */
-      transition: background 0.3s ease; /* 背景色の変化を0.3秒かけて滑らかに */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+      background: #111;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: background 0.3s ease;
     }
 
     nav.scrolling {
-      background: rgba(17, 17, 17, 0.8); /* スクロール時の背景色を半透明の濃いグレーに設定 */
+      background: rgba(17, 17, 17, 0.8);
     }
 
     nav button {
-      background: none; /* ボタンの背景を透明に設定 */
-      border: none; /* ボタンの境界線をなくす */
-      color: white; /* 文字色を白に設定 */
-      font-size: 1rem; /* 文字サイズを1remに設定 */
-      cursor: pointer; /* カーソルをポインターに設定 */
-      padding: 10px 15px; /* 内側の余白を上下10px、左右15pxに設定 */
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 10px 15px;
     }
 
     nav button.active {
-      border-bottom: 2px solid #ffa500; /* アクティブなボタンの下部に2pxのオレンジ色の線を表示 */
+      border-bottom: 2px solid #ffa500;
     }
 
     .section {
-      display: none; /* 初期状態では非表示 */
-      max-width: 900px; /* 最大幅を900pxに設定 */
-      padding: 20px; /* 内側の余白を20pxに設定 */
-      margin: auto; /* 中央揃えにする */
-      opacity: 0; /* 透明度を0に設定（完全に透明） */
-      transition: opacity 0.5s ease; /* 透明度の変化を0.5秒かけて滑らかに */
-      margin-top: 0; /* 上部のマージンを80pxに設定（ナビゲーションバーの下に表示される） */
+      display: none;
+      max-width: 900px;
+      padding: 20px;
+      margin: auto;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      margin-top: 0;
     }
 
     .section.active {
-      display: block; /* アクティブなセクションを表示 */
-      opacity: 1; /* 透明度を1に設定（完全に不透明） */
+      display: block;
+      opacity: 1;
     }
 
-  .hero {
-    display: flex; /* フレックスボックスレイアウトを使用 */
-    flex-direction: column; /* 子要素を縦方向に並べる */
-    justify-content: center; /* 縦方向の中央揃え */
-    align-items: center; /* 横方向の中央揃え */
-    text-align: center; /* テキストを中央揃え */
-    background: linear-gradient(135deg, #ff6a00, #ff3c00, #ffa500); /* 背景をグラデーションに設定 */
-    background-size: 600% 600%; /* グラデーションのサイズを大きく設定（アニメーション用） */
-    animation: gradientMove 3s ease infinite; /* gradientMoveアニメーションを3秒間隔で無限に繰り返す */
-    color: white; /* 文字色を白に設定 */
-    width: 100vw; /* 幅をビューポート幅の100%に設定 */
-    position: relative; /* 相対位置指定 */
-    left: 50%; /* 左端からの位置を50%に設定 */
-    transform: translateX(-50%); /* X軸方向に-50%移動（中央揃えのため） */
-    padding-top: 120px; /* 上部の内側余白を120pxに設定 */
-    padding-bottom: 60px; /* 下部の内側余白を60pxに設定　オレンジの下の幅 */
-    margin: 0; /* 外側の余白をなくす */
-    margin-bottom: 0; /* ← 念のため追加しておこう */
-  }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #ff6a00, #ff3c00, #ffa500);
+      background-size: 600% 600%;
+      animation: gradientMove 3s ease infinite;
+      color: white;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      padding-top: 120px;
+      padding-bottom: 60px;
+      margin: 0;
+      margin-bottom: 0;
+    }
 
-  @keyframes gradientMove {
-    0% {
-      background-position: 0% 50%; /* グラデーションの開始位置 */
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
-    50% {
-      background-position: 100% 50%; /* グラデーションの中間位置 */
-    }
-    100% {
-      background-position: 0% 50%; /* グラデーションの終了位置（開始位置に戻る） */
-    }
-  }
 
     .logo {
-      font-size: 3rem; /* ロゴの文字サイズを3remに設定 */
-      margin-top: 40px; /* 上部のマージンを40pxに設定（ロゴを下にずらす） */
-      margin-bottom: 0; /* 下部のマージンをなくす（タグラインとの間を詰める） */
-      line-height: 1; /* 行の高さを文字サイズと同じに設定 */
+      font-size: 3rem;
+      margin-top: 40px;
+      margin-bottom: 0;
+      line-height: 1;
     }
 
     .tagline {
-      margin-top: 3; /* 上部のマージンを3pxに設定 */
-      line-height: 1.5; /* 行の高さを文字サイズの1.5倍に設定（行間を少し詰める） */
-    }
-    
-    @keyframes bounceIn {
-      0% {
-        opacity: 0; /* 初期状態では透明 */
-        transform: translateY(20px) scale(0.8); /* 下に20px移動し、サイズを80%に縮小 */
-      }
-      60% {
-        opacity: 1; /* 60%時点で完全に不透明に */
-        transform: translateY(-10px) scale(1.1); /* 上に10px移動し、サイズを110%に拡大 */
-      }
-      100% {
-        transform: translateY(0) scale(1); /* 元の位置とサイズに戻る */
-      }
-    }
-
-    .tagline {
-      opacity: 0; /* 初期状態では透明 */
-      transform: translateY(30px); /* 下に30px移動 */
+      margin-top: 3px;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(30px);
     }
 
     .tagline.in-view {
-      animation: fadeUp 1s ease 0.8s forwards; /* fadeUpアニメーションを1秒かけて実行、0.8秒遅延、最終状態を維持 */
+      animation: fadeUp 1s ease 0.8s forwards;
     }
 
     @keyframes fadeUp {
       to {
-        opacity: 1; /* 最終的に完全に不透明に */
-        transform: translateY(0); /* 元の位置に戻る */
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
     .highlights {
-      max-width: 900px; /* 最大幅を900pxに設定 */
-      margin: 0px auto 60px; /* 上部0px、左右auto（中央揃え）、下部0pxのマージン設定 */
-      padding-top: 0;
-      padding: 0 20px; /* 左右20pxの内側余白を設定 */
+      max-width: 900px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
     }
 
     .highlight {
-      margin-bottom: 50px; /* 下部のマージンを50pxに設定 */
-      padding: 30px 25px; /* 内側の余白を上下30px、左右25pxに設定 */
-      background: #f9f9f9; /* 背景色を明るいグレーに設定（オレンジ感を抑えた色） */
-      border-radius: 12px; /* 角の丸みを12pxに設定 */
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1); /* 影を設定（x軸0、y軸6px、ぼかし16px） */
-      border: 1px solid #ddd; /* 1pxの薄いグレーの境界線を追加 */
-      background: #fff; /* 背景色を白に設定（くっきり見せる） */
-      opacity: 0; /* 初期状態では透明 */
-      transform: rotateY(90deg); /* Y軸を中心に90度回転（横から見えない状態） */
-      transform-origin: center; /* 回転の中心を中央に設定 */
-      transition: all 0.8s ease; /* 全プロパティの変化を0.8秒かけて滑らかに */
-      backface-visibility: hidden; /* 裏面を非表示に設定 */
+      margin-bottom: 50px;
+      padding: 30px 25px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      border: 1px solid #ddd;
+      opacity: 0;
+      transform: rotateY(90deg);
+      transform-origin: center;
+      transition: all 0.8s ease;
+      backface-visibility: hidden;
     }
 
-    .highlight:first-of-type {
-  margin-top: 0;
-  padding-top: 30px; /* ← これで元の余白を保持 */
+    /* 1枚目のカードのタイトル上の余白を追加 */
+    .highlight:first-of-type h3 {
+      margin-top: 0;
+    }
 
     .highlight.in-view {
-      opacity: 1; /* 表示状態では完全に不透明に */
-      transform: rotateY(0deg); /* 元の角度に戻す */
+      opacity: 1;
+      transform: rotateY(0deg);
     }
 
-    .highlight:nth-of-type(1).in-view { transition-delay: 0.1s; } /* 1番目の要素は0.1秒遅延 */
-    .highlight:nth-of-type(2).in-view { transition-delay: 0.3s; } /* 2番目の要素は0.3秒遅延 */
-    .highlight:nth-of-type(3).in-view { transition-delay: 0.5s; } /* 3番目の要素は0.5秒遅延 */
+    .highlight:nth-of-type(1).in-view { transition-delay: 0.1s; }
+    .highlight:nth-of-type(2).in-view { transition-delay: 0.3s; }
+    .highlight:nth-of-type(3).in-view { transition-delay: 0.5s; }
 
     .highlight h3 {
-      margin: 0 auto 20px; /* 上部0、左右auto（中央揃え）、下部20pxのマージン設定 */
-      padding: 12px 20px; /* 内側の余白を上下12px、左右20pxに設定 */
-      text-align: center; /* テキストを中央揃え */
-      color: white; /* 文字色を白に設定 */
-      background: #333; /* 背景色を濃いグレーに設定 */
-      border-radius: 8px; /* 角の丸みを8pxに設定 */
-      font-size: 1.4rem; /* 文字サイズを1.4remに設定 */
-      width: fit-content; /* 幅を内容に合わせる */
-      max-width: 100%; /* 最大幅を親要素の100%に設定 */
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 影を設定 */
+      margin: 0 auto 20px;
+      padding: 12px 20px;
+      text-align: center;
+      color: white;
+      background: #333;
+      border-radius: 8px;
+      font-size: 1.4rem;
+      width: fit-content;
+      max-width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .highlight p {
-      line-height: 1.75; /* 行の高さを文字サイズの1.75倍に設定 */
-      font-size: 1.05rem; /* 文字サイズを1.05remに設定 */
-      color: #333; /* 文字色を濃いグレーに設定 */
-      text-align: center; /* テキストを中央揃え */
+      line-height: 1.75;
+      font-size: 1.05rem;
+      color: #333;
+      text-align: center;
     }
 
     .highlight img {
-      width: 100%; /* 画像の幅を親要素の100%に設定 */
-      border-radius: 10px; /* 角の丸みを10pxに設定 */
-      margin-top: 20px; /* 上部のマージンを20pxに設定 */
-    }
-
-    footer {
-      text-align: center; /* テキストを中央揃え */
-      padding: 20px; /* 内側の余白を20pxに設定 */
-      background: #111; /* 背景色を濃いグレーに設定 */
-      color: white; /* 文字色を白に設定 */
-      margin-top: 40px; /* 上部のマージンを40pxに設定 */
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
     }
 
     .highlight:hover {
-      transform: translateY(-4px); /* ホバー時に上に4px移動 */
-      box-shadow: 0 10px 24px rgba(0,0,0,0.15); /* 影を大きくする */
-      transition: all 0.3s ease; /* 変化を0.3秒かけて滑らかに */
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+      transition: all 0.3s ease;
     }
-    
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      color: white;
+      margin-top: 40px;
+    }
+
     #backToTop {
-      position: fixed; /* 固定位置に表示 */
-      bottom: 70px; /* 画面の下から70pxの位置に配置 */
-      left: 150px; /* 画面の左から150pxの位置に配置（右下にしたい場合はrightプロパティを使用） */
-      z-index: 999; /* 重なり順を他の要素より前面に設定 */
-      background-color: #ff4500; /* 背景色をオレンジレッドに設定 */
-      color: white; /* 文字色を白に設定 */
-      border: none; /* 境界線をなくす */
-      border-radius: 50%; /* 角の丸みを50%に設定（円形にする） */
-      width: 100px; /* ボタンの幅を100pxに設定 */
-      height: 100px; /* ボタンの高さを100pxに設定 */
-      font-size: 3.0rem; /* 矢印のサイズを3.0remに設定 */
-      cursor: pointer; /* カーソルをポインターに設定 */
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* 影を設定 */
-      opacity: 0.7; /* 透明度を0.7に設定（やや透明） */
-      transition: opacity 0.3s ease; /* 透明度の変化を0.3秒かけて滑らかに */
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      background-color: #ff4500;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
     }
-    
+
+    /* スマホ表示時のトップへ戻るボタンのスタイル */
+    @media (max-width: 768px) {
+      #backToTop {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+        bottom: 15px;
+        right: 15px;
+        opacity: 0.6;
+      }
+    }
+
     #backToTop:hover {
-      opacity: 1; /* ホバー時に完全に不透明にする */
+      opacity: 1;
     }
 
     @keyframes gravityBounce {
-      0%   { transform: translateY(-200px); opacity: 0; } /* 初期状態：上に200px移動、透明 */
-      40%  { transform: translateY(0); opacity: 1; } /* 40%時点：元の位置、不透明 */
-      55%  { transform: translateY(-30px); } /* 55%時点：上に30px移動（バウンス） */
-      70%  { transform: translateY(0); } /* 70%時点：元の位置 */
-      80%  { transform: translateY(-15px); } /* 80%時点：上に15px移動（小さいバウンス） */
-      90%  { transform: translateY(0); } /* 90%時点：元の位置 */
-      100% { transform: translateY(0); opacity: 1; } /* 最終状態：元の位置、不透明 */
+      0%   { transform: translateY(-200px); opacity: 0; }
+      40%  { transform: translateY(0); opacity: 1; }
+      55%  { transform: translateY(-30px); }
+      70%  { transform: translateY(0); }
+      80%  { transform: translateY(-15px); }
+      90%  { transform: translateY(0); }
+      100% { transform: translateY(0); opacity: 1; }
     }
 
     .logo span {
-      display: inline-block; /* インラインブロック要素として表示（アニメーション用） */
-      opacity: 0; /* 初期状態では透明 */
-      transform: translateY(-200px); /* 上に200px移動した状態から始める */
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(-200px);
     }
 
     .logo.in-view span {
-      animation: gravityBounce 1.6s ease forwards; /* gravityBounceアニメーションを1.6秒かけて実行、最終状態を維持 */
+      animation: gravityBounce 1.6s ease forwards;
     }
 
-    .logo.in-view span:nth-child(1) { animation-delay: 0s; } /* 1文字目は遅延なし */
-    .logo.in-view span:nth-child(2) { animation-delay: 0.1s; } /* 2文字目は0.1秒遅延 */
-    .logo.in-view span:nth-child(3) { animation-delay: 0.2s; } /* 3文字目は0.2秒遅延 */
-    .logo.in-view span:nth-child(4) { animation-delay: 0.3s; } /* 4文字目は0.3秒遅延 */
-    .logo.in-view span:nth-child(5) { animation-delay: 0.4s; } /* 5文字目は0.4秒遅延 */
-    .logo.in-view span:nth-child(6) { animation-delay: 0.5s; } /* 6文字目は0.5秒遅延 */
+    .logo.in-view span:nth-child(1) { animation-delay: 0s; }
+    .logo.in-view span:nth-child(2) { animation-delay: 0.1s; }
+    .logo.in-view span:nth-child(3) { animation-delay: 0.2s; }
+    .logo.in-view span:nth-child(4) { animation-delay: 0.3s; }
+    .logo.in-view span:nth-child(5) { animation-delay: 0.4s; }
+    .logo.in-view span:nth-child(6) { animation-delay: 0.5s; }
 
-    /* Google Form用のスタイル */
-.contact-form-container {
-  display: flex; /* フレックスボックスレイアウトを使用 */
-  justify-content: center; /* 横方向の中央揃え */
-  align-items: center; /* 縦方向の中央揃え */
-  margin-top: 30px; /* 上部のマージンを30pxに設定 */
-}
+    .contact-form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
 
-.google-form {
-  width: 100%; /* フォームの幅を親要素の100%に設定 */
-  height: 700px; /* フォームの高さを700pxに設定 */
-  border: none; /* 境界線をなくす */
-  border-radius: 8px; /* 角の丸みを8pxに設定 */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 影を設定 */
-}
+    .google-form {
+      width: 100%;
+      height: 700px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
 
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-  .google-form {
-    height: 800px; /* モバイル端末では高さを800pxに調整 */
-  }
-}
+    /* 問い合わせボタンのスタイル */
+    .contact-button {
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      background: #ff4500;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: inline-block;
+      margin-top: 30px;
+      text-align: center;
+    }
 
-    /* フォームのスタイル */
+    .contact-button:hover {
+      background: #e63900;
+    }
+
+    @media (max-width: 768px) {
+      .google-form {
+        height: 800px;
+      }
+    }
+
     form input, form textarea {
-      width: 100%; /* 入力フィールドの幅を親要素の100%に設定 */
-      padding: 10px; /* 内側の余白を10pxに設定 */
-      margin-bottom: 15px; /* 下部のマージンを15pxに設定 */
-      border: 1px solid #ddd; /* 1pxの薄いグレーの境界線を設定 */
-      border-radius: 4px; /* 角の丸みを4pxに設定 */
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
     }
 
     form textarea {
-      height: 150px; /* テキストエリアの高さを150pxに設定 */
+      height: 150px;
     }
 
     form button {
-      padding: 12px 24px; /* 内側の余白を上下12px、左右24pxに設定 */
-      background: #ff4500; /* 背景色をオレンジレッドに設定 */
-      color: white; /* 文字色を白に設定 */
-      border: none; /* 境界線をなくす */
-      border-radius: 6px; /* 角の丸みを6pxに設定 */
-      cursor: pointer; /* カーソルをポインターに設定 */
-      transition: background 0.3s; /* 背景色の変化を0.3秒かけて滑らかに */
+      padding: 12px 24px;
+      background: #ff4500;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
 
     form button:hover {
-      background: #e63900; /* ホバー時の背景色を濃いオレンジレッドに変更 */
-    }* {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Helvetica Neue', sans-serif;
-  background: #fff;
-  color: #111;
-}
-
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
-  background: #111;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  transition: background 0.3s ease;
-}
-
-nav.scrolling {
-  background: rgba(17, 17, 17, 0.8);
-}
-
-nav button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 10px 15px;
-}
-
-nav button.active {
-  border-bottom: 2px solid #ffa500;
-}
-
-.section {
-  display: none;
-  max-width: 900px;
-  padding: 20px;
-  margin: auto;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  margin-top: 0;
-}
-
-.section.active {
-  display: block;
-  opacity: 1;
-}
-
-.hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: linear-gradient(135deg, #ff6a00, #ff3c00, #ffa500);
-  background-size: 600% 600%;
-  animation: gradientMove 3s ease infinite;
-  color: white;
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  padding-top: 120px;
-  padding-bottom: 60px;
-  margin: 0;
-  margin-bottom: 0;
-}
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.logo {
-  font-size: 3rem;
-  margin-top: 40px;
-  margin-bottom: 0;
-  line-height: 1;
-}
-
-.tagline {
-  margin-top: 3px;
-  line-height: 1.5;
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.tagline.in-view {
-  animation: fadeUp 1s ease 0.8s forwards;
-}
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.highlights {
-  max-width: 900px;
-  margin: 40px auto 60px; /* ← heroとの間に余白追加 */
-  padding: 0 20px;
-}
-
-.highlight {
-  margin-bottom: 50px;
-  padding: 30px 25px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-  border: 1px solid #ddd;
-  opacity: 0;
-  transform: rotateY(90deg);
-  transform-origin: center;
-  transition: all 0.8s ease;
-  backface-visibility: hidden;
-}
-
-.highlight:first-of-type {
-  padding-top: 30px; /* ← タイトルとの間の余白 */
-}
-
-.highlight.in-view {
-  opacity: 1;
-  transform: rotateY(0deg);
-}
-
-.highlight:nth-of-type(1).in-view { transition-delay: 0.1s; }
-.highlight:nth-of-type(2).in-view { transition-delay: 0.3s; }
-.highlight:nth-of-type(3).in-view { transition-delay: 0.5s; }
-
-.highlight h3 {
-  margin: 0 auto 20px;
-  padding: 12px 20px;
-  text-align: center;
-  color: white;
-  background: #333;
-  border-radius: 8px;
-  font-size: 1.4rem;
-  width: fit-content;
-  max-width: 100%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.highlight p {
-  line-height: 1.75;
-  font-size: 1.05rem;
-  color: #333;
-  text-align: center;
-}
-
-.highlight img {
-  width: 100%;
-  border-radius: 10px;
-  margin-top: 20px;
-}
-
-.highlight:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
-  transition: all 0.3s ease;
-}
-
-footer {
-  text-align: center;
-  padding: 20px;
-  background: #111;
-  color: white;
-  margin-top: 40px;
-}
-
-#backToTop {
-  position: fixed;
-  bottom: 70px;
-  left: 150px;
-  z-index: 999;
-  background-color: #ff4500;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  font-size: 3.0rem;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
-
-#backToTop:hover {
-  opacity: 1;
-}
-
-@keyframes gravityBounce {
-  0%   { transform: translateY(-200px); opacity: 0; }
-  40%  { transform: translateY(0); opacity: 1; }
-  55%  { transform: translateY(-30px); }
-  70%  { transform: translateY(0); }
-  80%  { transform: translateY(-15px); }
-  90%  { transform: translateY(0); }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-.logo span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(-200px);
-}
-
-.logo.in-view span {
-  animation: gravityBounce 1.6s ease forwards;
-}
-
-.logo.in-view span:nth-child(1) { animation-delay: 0s; }
-.logo.in-view span:nth-child(2) { animation-delay: 0.1s; }
-.logo.in-view span:nth-child(3) { animation-delay: 0.2s; }
-.logo.in-view span:nth-child(4) { animation-delay: 0.3s; }
-.logo.in-view span:nth-child(5) { animation-delay: 0.4s; }
-.logo.in-view span:nth-child(6) { animation-delay: 0.5s; }
-
-.contact-form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
-}
-
-.google-form {
-  width: 100%;
-  height: 700px;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-@media (max-width: 768px) {
-  .google-form {
-    height: 800px;
-  }
-}
-
-form input, form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-form textarea {
-  height: 150px;
-}
-
-form button {
-  padding: 12px 24px;
-  background: #ff4500;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-form button:hover {
-  background: #e63900;
-}
+      background: #e63900;
+    }
   </style>
 </head>
 <body>
   <nav>
-    <!-- ナビゲーションボタン：クリックするとセクションを切り替える -->
     <button data-section="home" class="active">ホーム</button>
     <button data-section="services">サービス</button>
     <button data-section="company">会社概要</button>
@@ -598,10 +325,8 @@ form button:hover {
   </nav>
 
   <div id="heroContainer">
-    <!-- ヒーローセクション：サイトのメインビジュアル部分 -->
     <div class="hero">
       <h1 class="logo animate-on-scroll">
-        <!-- ロゴの各文字：個別にアニメーション効果が適用される -->
         <span>A</span>
         <span>d</span>
         <span>M</span>
@@ -614,7 +339,6 @@ form button:hover {
   </div>
 
   <div id="home" class="section active">
-    <!-- ホームセクション：最初に表示されるメインコンテンツ -->
     <section class="highlights">
       <div class="highlight">
         <h3>Web広告の魅力</h3>
@@ -658,7 +382,6 @@ form button:hover {
     </section>
 
     <div style="text-align: center; margin-top: 40px;">
-      <!-- 「お問い合わせはこちら」ボタン：クリックするとお問い合わせセクションに移動 -->
       <button onclick="scrollToSection('contact')" style="padding: 12px 24px; font-size: 1.1rem; background: #ff4500; color: white; border: none; border-radius: 6px; cursor: pointer; transition: background 0.3s;">
         お問い合わせはこちら
       </button>
@@ -666,148 +389,149 @@ form button:hover {
   </div>
 
   <div id="services" class="section">
-    <!-- サービスセクション：提供サービスの紹介 -->
     <h2>サービス紹介</h2>
     <ul>
       <li>WEB広告</li>
       <li>インハウス支援</li>
       <li>生成AI</li>
     </ul>
+    <!-- サービスセクションの下に問い合わせボタンを追加 -->
+    <div style="text-align: center;">
+      <button onclick="scrollToSection('contact')" class="contact-button">
+        お問い合わせはこちら
+      </button>
+    </div>
   </div>
 
   <div id="company" class="section">
-    <!-- 会社概要セクション：企業情報 -->
     <h2>会社概要</h2>
     <p><strong>会社名：</strong>合同会社AdMoat</p>
     <p><strong>所在地：</strong>青森県弘前市桶屋町</p>
     <p><strong>代表者：</strong>池田昂生</p>
     <p><strong>設立：</strong>2024年</p>
     <p><strong>事業内容：</strong>WEBマーケティング</p>
+    <!-- 会社概要セクションの下に問い合わせボタンを追加 -->
+    <div style="text-align: center;">
+      <button onclick="scrollToSection('contact')" class="contact-button">
+        お問い合わせはこちら
+      </button>
+    </div>
   </div>
 
   <div id="contact" class="section">
-  <!-- お問い合わせセクション：問い合わせフォーム -->
-  <h2>お問い合わせ</h2>
-  <p>以下のフォームからお気軽にお問い合わせください。担当者が確認次第、ご連絡いたします。</p>
-  <div class="contact-form-container">
-    <!-- Google Formsの埋め込み -->
-    <iframe class="google-form" src="https://forms.gle/d7L4aLWx1MNpkCGa7" frameborder="0">読み込んでいます...</iframe>
+    <h2>お問い合わせ</h2>
+    <p>以下のフォームからお気軽にお問い合わせください。担当者が確認次第、ご連絡いたします。</p>
+    <div class="contact-form-container">
+      <iframe class="google-form" src="https://forms.gle/d7L4aLWx1MNpkCGa7" frameborder="0">読み込んでいます...</iframe>
+    </div>
   </div>
-</div>
 
   <footer>
-    <!-- フッター：著作権表示 -->
     &copy; 2025 AdMoat. All rights reserved.
   </footer>
   <button id="backToTop" title="トップに戻る">↑</button>
   <script>
-    const backToTopBtn = document.getElementById("backToTop"); // トップに戻るボタン要素を取得
-    const heroContainer = document.getElementById("heroContainer"); // ヒーローセクションのコンテナ要素を取得
-    const navButtons = document.querySelectorAll("nav button"); // ナビゲーションボタン要素を全て取得
+    const backToTopBtn = document.getElementById("backToTop");
+    const heroContainer = document.getElementById("heroContainer");
+    const navButtons = document.querySelectorAll("nav button");
 
     backToTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" }); // ボタンクリック時にページ上部にスムースにスクロール
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) { // スクロール位置が300px以上なら
-        backToTopBtn.style.display = "block"; // トップに戻るボタンを表示
+      if (window.scrollY > 300) {
+        backToTopBtn.style.display = "block";
       } else {
-        backToTopBtn.style.display = "none"; // それ以外はボタンを非表示
+        backToTopBtn.style.display = "none";
       }
     });
 
-    backToTopBtn.style.display = "none"; // 初期状態ではボタンを非表示に設定
+    backToTopBtn.style.display = "none";
 
-    const buttons = document.querySelectorAll("nav button"); // ナビゲーションボタン要素を再度取得（重複コード）
-    const sections = document.querySelectorAll(".section"); // セクション要素を全て取得
+    const buttons = document.querySelectorAll("nav button");
+    const sections = document.querySelectorAll(".section");
 
     buttons.forEach(button => {
-  button.addEventListener("click", () => {
-    const target = button.dataset.section; // クリックされたボタンのdata-section属性値を取得
-    
-    // ヒーロー部分の表示・非表示を切り替え
-    if (target === "home") { // ターゲットがホームセクションなら
-      heroContainer.style.display = "block"; // ヒーローコンテナを表示
-    } else {
-      heroContainer.style.display = "none"; // それ以外ならヒーローコンテナを非表示
-    }
-    
-    buttons.forEach(btn => btn.classList.remove("active")); // 全てのボタンからactiveクラスを削除
-    button.classList.add("active"); // クリックされたボタンにactiveクラスを追加
-    
-    sections.forEach(section => {
-      section.classList.toggle("active", section.id === target); // セクションIDがターゲットと一致すればactiveクラスを追加、それ以外は削除
+      button.addEventListener("click", () => {
+        const target = button.dataset.section;
+        
+        if (target === "home") {
+          heroContainer.style.display = "block";
+        } else {
+          heroContainer.style.display = "none";
+        }
+        
+        buttons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        
+        sections.forEach(section => {
+          section.classList.toggle("active", section.id === target);
+        });
+      });
     });
-  });
-});
 
     function scrollToSection(sectionId) {
-      const section = document.getElementById(sectionId); // 指定されたIDのセクション要素を取得
+      const section = document.getElementById(sectionId);
       if (section) {
-        document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); // 全てのセクションからactiveクラスを削除
-        section.classList.add('active'); // 指定されたセクションにactiveクラスを追加
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        section.classList.add('active');
         
-       // ヒーロー部分の表示・非表示を切り替え
-        if (sectionId === "home") { // セクションIDがhomeなら
-          heroContainer.style.display = "block"; // ヒーローコンテナを表示
+        if (sectionId === "home") {
+          heroContainer.style.display = "block";
         } else {
-          heroContainer.style.display = "none"; // それ以外ならヒーローコンテナを非表示
+          heroContainer.style.display = "none";
         }
         
         document.querySelectorAll('nav button').forEach(btn => {
-          btn.classList.toggle('active', btn.dataset.section === sectionId); // ボタンのdata-section属性がセクションIDと一致すればactiveクラスを追加、それ以外は削除
+          btn.classList.toggle('active', btn.dataset.section === sectionId);
         });
         
-        section.scrollIntoView({ behavior: 'smooth' }); // 指定されたセクションへスムーズにスクロール
+        section.scrollIntoView({ behavior: 'smooth' });
       }
     }
 
-    const observer = new IntersectionObserver(entries => { // 交差オブザーバーを作成（要素が画面に表示されたかを監視）
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.target.classList.contains('logo')) { // 対象がlogoクラスを持つ要素なら
-          if (entry.isIntersecting) { // 画面に表示されたら
-            const spans = entry.target.querySelectorAll('span'); // ロゴ内のspan要素を全て取得
+        if (entry.target.classList.contains('logo')) {
+          if (entry.isIntersecting) {
+            const spans = entry.target.querySelectorAll('span');
             spans.forEach((span, index) => {
-              span.style.animation = 'none'; // 一度アニメーションをリセット
-              span.offsetHeight; // 強制再描画（リセットを確実に適用するため）
-              span.style.animation = `gravityBounce 1.6s ease ${index * 0.1}s forwards`; // 各文字に遅延を付けてアニメーション適用
-
-              // このコードを追加することで、アニメーション完了後もロゴが表示されたままになる
-              span.style.opacity = '1'; // 不透明度を1に設定して表示状態にする
+              span.style.animation = 'none';
+              span.offsetHeight;
+              span.style.animation = `gravityBounce 1.6s ease ${index * 0.1}s forwards`;
+              span.style.opacity = '1';
             });
           }
         } else {
-          if (entry.isIntersecting) { // 画面に表示されたら
-            entry.target.classList.add("in-view"); // in-viewクラスを追加してアニメーション開始
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
           } else {
-            entry.target.classList.remove("in-view"); // 画面から外れたらin-viewクラスを削除
+            entry.target.classList.remove("in-view");
           }
         }
       });
-    }, { threshold: 0.3 }); // 要素が30%以上表示されたらコールバックを実行
+    }, { threshold: 0.3 });
 
-    // 対象に .logo も含めて監視対象にする
     document.querySelectorAll(".animate-on-scroll, .highlight, .logo").forEach(el => {
-      observer.observe(el); // 各要素を監視対象に追加
+      observer.observe(el);
     });
 
-    let scrollTimeout; // スクロールタイムアウト用の変数
+    let scrollTimeout;
     window.addEventListener('scroll', () => {
-      const nav = document.querySelector('nav'); // ナビゲーション要素を取得
-      nav.classList.add('scrolling'); // スクロール中はscrollingクラスを追加（半透明背景に）
+      const nav = document.querySelector('nav');
+      nav.classList.add('scrolling');
 
-      clearTimeout(scrollTimeout); // 既存のタイムアウトをクリア
+      clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
-        nav.classList.remove('scrolling'); // スクロールが止まったらscrollingクラスを削除
-      }, 150); // スクロールが止まって150ms後に背景を元に戻す
+        nav.classList.remove('scrolling');
+      }, 150);
     });
     
-    // ページ読み込み時にセクションを確認し、ヒーロー部分の表示・非表示を設定
     window.addEventListener('DOMContentLoaded', () => {
-      const activeSection = document.querySelector('.section.active').id; // 現在アクティブなセクションのIDを取得
-      if (activeSection !== "home") { // ホームセクション以外がアクティブなら
-        heroContainer.style.display = "none"; // ヒーローコンテナを非表示
+      const activeSection = document.querySelector('.section.active').id;
+      if (activeSection !== "home") {
+        heroContainer.style.display = "none";
       }
     });
   </script>

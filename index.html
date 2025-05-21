@@ -85,13 +85,14 @@
       animation: gradientMove 3s ease infinite;
       color: white;
       width: 100vw;
-      position: relative;
+      position: relative; /* 変更: 疑似要素配置のため */
       left: 50%;
       transform: translateX(-50%);
       padding-top: 120px;
       padding-bottom: 60px;
       margin: 0;
       margin-bottom: 0;
+      overflow: hidden; /* 追加: はみ出した要素を隠す */
     }
 
     @keyframes gradientMove {
@@ -100,11 +101,40 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* ▼提案3の背景パターンアニメーション用に追加 */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(60deg, rgba(255,255,255,0.07) 1px, transparent 1px),
+        linear-gradient(-60deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 35px 55px; /* パターンのサイズ */
+      opacity: 0.4; /* パターンの透明度 (0.0 ~ 1.0 で調整) */
+      z-index: 0;   /* 背景グラデーションとテキストコンテンツの間に配置 */
+      animation: subtlePatternScroll 25s linear infinite;
+    }
+
+    @keyframes subtlePatternScroll {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 35px 55px; /* background-sizeに合わせて調整 */
+      }
+    }
+    /* ▲ここまで追加 */
+
     .logo {
       font-size: 3rem;
       margin-top: 40px;
       margin-bottom: 0;
       line-height: 1;
+      position: relative; /* 追加: パターンより手前に表示するため */
+      z-index: 1;       /* 追加: パターンより手前に表示するため */
     }
 
     .tagline {
@@ -112,6 +142,8 @@
       line-height: 1.5;
       opacity: 0;
       transform: translateY(30px);
+      position: relative; /* 追加: パターンより手前に表示するため */
+      z-index: 1;       /* 追加: パターンより手前に表示するため */
     }
 
     .tagline.in-view {
@@ -515,20 +547,33 @@
             const spans = entry.target.querySelectorAll('span');
             spans.forEach((span, index) => {
               span.style.animation = 'none';
-              span.offsetHeight;
+              span.offsetHeight; // Trigger reflow to restart animation
               span.style.animation = `gravityBounce 1.6s ease ${index * 0.1}s forwards`;
-              span.style.opacity = '1';
+              // opacity is handled by the animation itself
             });
+          } else {
+            // Optionally reset when out of view for re-animation on scroll up
+             const spans = entry.target.querySelectorAll('span');
+             spans.forEach((span) => {
+               span.style.animation = 'none';
+               span.style.opacity = '0'; // Reset opacity
+               span.style.transform = 'translateY(-200px)'; // Reset transform
+             });
           }
         } else {
           if (entry.isIntersecting) {
             entry.target.classList.add("in-view");
           } else {
             entry.target.classList.remove("in-view");
+            // For .tagline, ensure it can re-animate if needed
+            if(entry.target.classList.contains('tagline')) {
+                entry.target.style.opacity = '0';
+                entry.target.style.transform = 'translateY(30px)';
+            }
           }
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.1 }); // Adjusted threshold for earlier trigger
 
     document.querySelectorAll(".animate-on-scroll, .highlight, .logo").forEach(el => {
       observer.observe(el);
@@ -550,6 +595,25 @@
       if (activeSection !== "home") {
         heroContainer.style.display = "none";
       }
+
+      // Initial check for animations that should be visible on load
+      document.querySelectorAll(".animate-on-scroll, .highlight, .logo").forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
+           // Manually trigger for elements already in view
+           if (el.classList.contains('logo')) {
+             if (!el.classList.contains('in-view')) { // Check to prevent re-triggering if already handled by IntersectionObserver
+                const spans = el.querySelectorAll('span');
+                spans.forEach((span, index) => {
+                  span.style.animation = `gravityBounce 1.6s ease ${index * 0.1}s forwards`;
+                });
+                el.classList.add('in-view'); // Mark as in-view
+             }
+           } else {
+             el.classList.add("in-view");
+           }
+        }
+      });
     });
   </script>
 </body>
